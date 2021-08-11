@@ -5,7 +5,7 @@ const port = process.env.PORT  || 3000;
 const mysql = require('mysql'); 
 
 app.use(bodyparser.urlencoded({extended: false}));
-app.use(express.static("./calenda"));
+app.use(express.static("./app"));
 
 /* Username validation */
 function username_validate(username){
