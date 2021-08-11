@@ -61,7 +61,8 @@ function isDateGreater(a, b){
 function birthday_validate(birthday){
   let birthdayRegex = /^([0-2^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
   let now = new Date;
-  let substr = now.toLocaleDateString();
+  let tempday = new Date(birthday.split('/')[2],birthday.split('/')[1],0).getDate();
+  let substr = now.getDate() + "/" + (now.getMonth() + 1) + "/" + now.getFullYear();
   dayinfo = substr.split('/');
   if(dayinfo[0].length == 1){
     dayinfo[0] = '0' + dayinfo[0];
@@ -70,13 +71,16 @@ function birthday_validate(birthday){
     dayinfo[1] = '0' + dayinfo[1];
   }
   substr = dayinfo[0] + '/' + dayinfo[1] + '/' + dayinfo[2];
-  if(!birthdayRegex.test(birthday)){/* Check character*/
+  if(birthday.split('/')[0] > tempday){
+    return false;
+  }
+  else if(!birthdayRegex.test(birthday)){/* Check character*/
     return false;
   }
   else if(isDateGreater(birthday, substr) == 1){
     return false;
   }
-  else{
+  else{/* toggle alert */
     return true;
   }
 }
